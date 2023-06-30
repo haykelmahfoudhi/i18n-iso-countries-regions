@@ -4,7 +4,7 @@
   "description": "i18n for ISO 3166 country and regions",
   "main": "index.ts",
   "scripts": {
-    "test": "npm run test"
+    "test:unit": "mocha 'tests/unit/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/haykelmahfoudhi/i18n-iso-countries-regions#readme",
   "devDependencies": {
-    "@types/node": "^20.3.2"
+    "@types/node": "^20.3.2",
+    "eslint": "^8.43.0",
+    "sinon": "^15.2.0",
+    "sinon-test": "^3.1.5",
+    "typescript": "^5.1.6"
   }
 }

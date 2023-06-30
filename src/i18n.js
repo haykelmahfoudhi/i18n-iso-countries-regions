@@ -19,13 +19,48 @@ function getAllCountriesName(language = 'en') {
   return allCountries;
 }
 
-function getCountriesCallingCode(isoCode) {
+function getAllCountriesCallingCode(language = 'en') {
+  const allCountries = [];
+
+  for (const countryCode in countriesData) {
+    const countryData = countriesData[countryCode];
+
+    if (countryData.names && countryData.names[language]) {
+      const country = {
+        iso: countryCode,
+        name: countryData.names[language],
+        callingCode: countryData.callingCode
+      };
+
+      allCountries.push(country);
+    }
+  }
+
+  return allCountries;
+}
+
+function getCallingCodeByCountryCode(isoCode) {
   if (countriesData.hasOwnProperty(isoCode)) {
     return countriesData[isoCode].callingCode;
   } else {
-    return null; // Return null or any other default value if the ISO code is not found
+    return null; // Return null if the ISO code is not found
   }
 }
+
+function getCallingCodeByCountryName(countryName) {
+  for (const isoCode in countriesData) {
+    if (countriesData.hasOwnProperty(isoCode)) {
+      const names = countriesData[isoCode].names;
+      for (const key in names) {
+        if (names.hasOwnProperty(key) && names[key].toLowerCase() === countryName.toLowerCase()) {
+          return countriesData[isoCode].callingCode;
+        }
+      }
+    }
+  }
+  return null; // Return null if the country name is not found
+}
+
 
 function getRegionsByCountryCode(language, countryCode) {
   const regions = [];
@@ -78,7 +113,9 @@ function getRegionsByCountryName(language, countryName) {
 
 module.exports = {
   getAllCountriesName,
-  getCountriesCallingCode,
+  getAllCountriesCallingCode,
+  getCallingCodeByCountryName,
+  getCallingCodeByCountryCode,
   getRegionsByCountryCode,
   getRegionsByCountryName
 };
