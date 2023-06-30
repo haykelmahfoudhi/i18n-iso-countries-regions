@@ -19,6 +19,14 @@ function getAllCountriesName(language = 'en') {
   return allCountries;
 }
 
+function getCountriesCallingCode(isoCode) {
+  if (countriesData.hasOwnProperty(isoCode)) {
+    return countriesData[isoCode].callingCode;
+  } else {
+    return null; // Return null or any other default value if the ISO code is not found
+  }
+}
+
 function getRegionsByCountryCode(language, countryCode) {
   const regions = [];
   
@@ -70,6 +78,7 @@ function getRegionsByCountryName(language, countryName) {
 
 module.exports = {
   getAllCountriesName,
+  getCountriesCallingCode,
   getRegionsByCountryCode,
   getRegionsByCountryName
 };
