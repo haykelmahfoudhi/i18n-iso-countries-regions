@@ -3,7 +3,7 @@ const i18n = require('i18n-iso-countries-regions')
 
 
 // Example usage of getAllCountries
-const countries = i18n.getAllCountriesName('de');
+const countries = i18n.getAllCountriesName('en');
 console.log(countries)
 
 // Example usage of getRegionsByCountryCode
@@ -15,7 +15,7 @@ const regionsByName = i18n.getRegionsByCountryName('fr', 'Andorre');
 console.log(regionsByName)
 
 // Example usage of getCountriesCallingCode
-const callingCodeByCountryCode  = i18n.getCallingCodeByCountryCode('TN');
+const callingCodeByCountryCode  = i18n.getCallingCodeByCountryCode('US');
 console.log(callingCodeByCountryCode)
 
 // Example usage of getCallingCodeByCountryName
