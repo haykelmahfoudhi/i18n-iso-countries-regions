@@ -25,3 +25,7 @@ console.log(callingCodeByCountryName);
 // Example usage of getAllCountriesCallingCodes
 const allCallingCode = i18n.getAllCountriesCallingCode('fr');
 console.log(allCallingCode);
+
+// Example usage of getCountryInfoByCountryCode
+const countryInfo = i18n.getCountryInfoByCountryCode('fr', 'ES')
+console.log(countryInfo)

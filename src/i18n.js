@@ -1,6 +1,18 @@
 const countriesData = require('./data/iso3166.json');
 
+const supportedLanguages = ['en', 'ru', 'de', 'fr', 'es', 'zh', 'hi', 'pt', 'ja', 'ar', 'it', 'he'];
+
+function validateLanguage(language) {
+  if (supportedLanguages.includes(language)) {
+    return language;
+  } else {
+    return 'en'; // Fallback to 'en' if the requested language is not supported
+  }
+}
+
 function getAllCountriesName(language = 'en') {
+  language = validateLanguage(language);
+
   const allCountries = [];
 
   for (const countryCode in countriesData) {
@@ -20,6 +32,8 @@ function getAllCountriesName(language = 'en') {
 }
 
 function getAllCountriesCallingCode(language = 'en') {
+  language = validateLanguage(language);
+
   const allCountries = [];
 
   for (const countryCode in countriesData) {
@@ -63,6 +77,8 @@ function getCallingCodeByCountryName(countryName) {
 
 
 function getRegionsByCountryCode(language, countryCode) {
+  language = validateLanguage(language);
+
   const regions = [];
   
   if (countriesData[countryCode] && countriesData[countryCode].regions) {
@@ -85,6 +101,8 @@ function getRegionsByCountryCode(language, countryCode) {
 }
 
 function getRegionsByCountryName(language, countryName) {
+  language = validateLanguage(language);
+
   const regions = [];
   
   for (const countryCode in countriesData) {
@@ -111,16 +129,30 @@ function getRegionsByCountryName(language, countryName) {
   return regions;
 }
 
+function getCountryInfoByCountryCode(language, countryCode) {
+  language = validateLanguage(language);
+
+  if (countriesData[countryCode] && countriesData[countryCode].names && countriesData[countryCode].names[language]) {
+    const countryData = countriesData[countryCode];
+    const countryInfo = {
+      iso: countryCode,
+      name: countryData.names[language],
+      callingCode: countryData.callingCode,
+      regions: getRegionsByCountryCode(language, countryCode)
+    };
+
+    return countryInfo;
+  }
+
+  return null; // Return null if the country code is not found or does not have a name in the requested language
+}
+
 module.exports = {
   getAllCountriesName,
   getAllCountriesCallingCode,
   getCallingCodeByCountryName,
   getCallingCodeByCountryCode,
   getRegionsByCountryCode,
-  getRegionsByCountryName
+  getRegionsByCountryName,
+  getCountryInfoByCountryCode
 };
-
-
-
-
-
